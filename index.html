@@ -4,176 +4,209 @@
     <base target="_top">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <title>IKXARI — Office Boy</title>
+    <title>Office Boy</title>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
       * { box-sizing: border-box; font-family: 'Jost', sans-serif; -webkit-tap-highlight-color: transparent; }
       html, body { margin: 0; padding: 0; background: #eef0f3; color: #1c1c1e; font-size: 14px; }
-      .page { width: 92vw; max-width: 920px; margin: 0 auto; padding: 18px 0 46px; }
-
+      .page { width: 92vw; max-width: 560px; margin: 0 auto; padding: 18px 0 46px; }
       .logo { display: flex; align-items: center; gap: 11px; justify-content: center; margin-bottom: 14px; }
       .logo .dot { width: 42px; height: 42px; border-radius: 11px; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; letter-spacing: 1px; }
       .logo h1 { font-size: 20px; font-weight: 800; letter-spacing: 2px; }
       .logo .tag { font-size: 11.5px; color: #6b7075; margin-top: 1px; }
-
-      .tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
-      .tabs button { padding: 10px 20px; border-radius: 30px; border: 1px solid #d5d8dd; background: #fff; color: #4b4f56; font-family: 'Jost'; font-size: 14px; font-weight: 600; cursor: pointer; transition: .15s; }
-      .tabs button.active { background: #000; color: #fff; border-color: #000; }
-
       .card { background: #fff; border: 1px solid #e2e4e8; border-radius: 14px; padding: 18px 18px; box-shadow: 0 6px 22px rgba(0,0,0,.05); margin-bottom: 14px; }
-      .cap { background: #000; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; text-align: center; font-size: 12px; padding: 7px 12px; border-radius: 7px; margin: 0 0 14px; }
-      .sub { font-size: 12.5px; color: #6b7075; text-align: center; margin: -8px 0 16px; }
-
-      .field { margin-bottom: 14px; }
+      .cap { background: #000; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; text-align: center; font-size: 12px; padding: 7px 12px; border-radius: 7px; margin: 0 0 12px; }
+      .stat { background: #111; color: #fff; border-radius: 9px; padding: 11px 12px; font-size: 13.5px; text-align: center; margin-bottom: 14px; font-weight: 600; }
+      .stat b { color: #7fe0a6; }
+      .field { margin-bottom: 13px; }
       .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
-      input[type="text"], input[type="date"], input[type="number"], input[type="tel"], textarea, select {
-        width: 100%; padding: 12px 13px; font-size: 16px; border: 1px solid #ccc; border-radius: 9px; background: #fff; color: #1c1c1e; outline: none; transition: .15s;
-      }
-      input:focus, textarea:focus, select:focus { border-color: #000; box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
-      textarea { resize: vertical; min-height: 62px; }
-      input::placeholder, textarea::placeholder { color: #9aa0a6; }
-
-      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-      @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; gap: 0; } }
-
-      /* multi-select */
-      .ms { position: relative; }
-      .ms-control { min-height: 46px; border: 1px solid #ccc; border-radius: 9px; padding: 7px 9px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; cursor: pointer; background: #fff; }
-      .ms-control.open { border-color: #000; }
-      .ms-ph { color: #9aa0a6; font-size: 16px; }
-      .ms-chip { background: #000; color: #fff; border-radius: 6px; padding: 4px 9px; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }
-      .ms-chip b { cursor: pointer; font-weight: 700; line-height: 1; }
-      .ms-panel { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 4px); background: #fff; border: 1px solid #ccc; border-radius: 9px; box-shadow: 0 8px 22px rgba(0,0,0,.14); max-height: 240px; overflow: auto; display: none; }
-      .ms-panel.open { display: block; }
-      .ms-opt { display: flex; align-items: center; gap: 9px; padding: 11px 12px; cursor: pointer; font-size: 15px; border-bottom: 1px solid #f0f1f3; }
-      .ms-opt:last-child { border-bottom: 0; } .ms-opt:hover { background: #f2f4f7; }
-      .ms-opt input { width: 17px; height: 17px; }
-      .ms-empty { padding: 12px; color: #9aa0a6; font-size: 13px; }
-
-      /* image uploaders */
-      .up-zone { border: 1.5px dashed #b9bdc6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; background: #fafbfc; }
-      .up-zone:hover, .up-zone.drag { border-color: #000; background: #f2f4f7; }
-      .up-zone .big { font-weight: 600; } .up-zone .small { color: #6b7075; font-size: 12px; margin-top: 3px; }
-      .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; margin-top: 10px; }
-      .thumb { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #e2e4e8; aspect-ratio: 1/1; background: #f0f0f0; }
-      .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-      .thumb .x { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; background: rgba(0,0,0,.65); color: #fff; border: none; cursor: pointer; font-size: 13px; line-height: 20px; padding: 0; }
-      .toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 10px; }
-
-      .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-family: 'Jost'; font-size: 16px; font-weight: 700; color: #fff; background: #000; transition: .15s; margin-top: 6px; }
+      select, input[type="text"] { width: 100%; padding: 12px 13px; font-size: 16px; border: 1px solid #ccc; border-radius: 9px; background: #fff; color: #1c1c1e; outline: none; transition: .15s; }
+      select:focus, input:focus { border-color: #000; box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+      @media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; gap: 0; } }
+      .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-family: 'Jost'; font-size: 16px; font-weight: 700; color: #fff; background: #000; transition: .15s; margin-top: 4px; }
       .btn:active { transform: translateY(1px); } .btn:disabled { opacity: .55; cursor: wait; }
+      .btn.sm { padding: 8px 14px; font-size: 13px; width: auto; margin: 0; }
+      .btn.ghost { background: #fff; color: #111; border: 1px solid #ccc; }
       .spin { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.45); border-top-color: #fff; border-radius: 50%; animation: sp .7s linear infinite; vertical-align: -2px; margin-right: 8px; }
       @keyframes sp { to { transform: rotate(360deg); } }
-      .hint { color: #6b7075; font-size: 12px; margin-top: 4px; }
       .err { color: #b00020; font-size: 12.5px; min-height: 16px; margin: 6px 0; }
-      .ok { background: #e6f4ea; border: 1px solid #b7e1cd; color: #137333; border-radius: 8px; padding: 10px; margin-top: 6px; display: none; word-break: break-word; }
-      .ok.show { display: block; } .ok a { color: #0b6b2b; font-weight: 700; }
       .foot { text-align: center; color: #9aa0a6; font-size: 11px; margin-top: 8px; }
-
+      /* recent list */
+      .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 4px; border-bottom: 1px solid #f0f1f3; }
+      .row:last-child { border-bottom: 0; }
+      .row .info { font-size: 13px; line-height: 1.4; }
+      .row .info .id { font-weight: 700; }
+      .row .info .meta { color: #6b7075; font-size: 12px; }
+      .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+      .b-yes { background: #dcfce7; color: #137333; } .b-no { background: #fee2e2; color: #b00020; } .b-none { background: #eef0f3; color: #6b7075; }
+      .empty { color: #9aa0a6; font-size: 13px; text-align: center; padding: 12px; }
+      /* modal */
+      .overlay { position: fixed; inset: 0; background: rgba(20,22,28,.5); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
+      .overlay.show { display: flex; }
+      .modal { background: #fff; border-radius: 14px; width: 100%; max-width: 460px; padding: 18px; box-shadow: 0 30px 80px rgba(0,0,0,.4); }
+      .modal .mrow { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+      /* loader + toast */
       .faceLoader { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(238,240,243,.92); backdrop-filter: blur(3px); }
       .faceLoader.hide { display: none; }
       .loading-text { font-size: 34px; font-weight: 800; letter-spacing: 6px; text-transform: uppercase; background: linear-gradient(90deg,#cfd2d8 0%,#111 50%,#cfd2d8 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shimmer 1.7s linear infinite; }
       @keyframes shimmer { to { background-position: 200% center; } }
       .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(20px); background: #111; color: #fff; padding: 13px 20px; border-radius: 11px; font-size: 13.5px; z-index: 10001; opacity: 0; transition: .3s; box-shadow: 0 12px 30px rgba(0,0,0,.25); max-width: 90vw; text-align: center; }
-      .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-      .toast.ok { background: #137333; } .toast.err { background: #b00020; }
-      .hidden { display: none; }
-      .stat { background: #111; color: #fff; border-radius: 9px; padding: 10px 12px; font-size: 13px; text-align: center; margin-bottom: 14px; font-weight: 600; }
-      .stat b { color: #7fe0a6; }
+      .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); } .toast.ok { background: #137333; } .toast.err { background: #b00020; }
     </style>
   </head>
   <body>
-    <div class="faceLoader" id="faceLoader"><div class="loading-text">IKXARI</div></div>
+    <div class="faceLoader" id="faceLoader"><div class="loading-text">LOADING</div></div>
     <div class="toast" id="toast"></div>
 
     <div class="page">
-      <div id="securityPanel">
-        <div class="card">
-          <div class="cap">New Visitor</div>
-          <div class="sub">Office Boy logs every visitor in a few taps.</div>
-          <div class="stat" id="g_stat">Today — Visitors: … · Ordered: …</div>
-          <div class="grid2">
-            <div class="field"><label>Customer Name</label><input type="text" id="g_name" placeholder="Customer name" /></div>
-            <div class="field"><label>Mobile Number</label><input type="tel" id="g_mobile" inputmode="numeric" maxlength="10" placeholder="9876543210" /></div>
-          </div>
-          <div class="grid2">
-            <div class="field"><label>How did you hear about us?</label><select id="g_source"></select></div>
-            <div class="field"><label>Sales Person (converted by)</label><select id="g_staffEmail"></select></div>
-          </div>
-          <div class="grid2">
-            <div class="field"><label>Product Purchased / Ordered</label>
-              <select id="g_purchased" onchange="toggleReason()"><option value="">— Select —</option><option>Yes</option><option>No</option></select>
-            </div>
-            <div class="field" id="g_reasonWrap" style="display:none"><label>If No — why not?</label>
-              <select id="g_notBuyReason" onchange="toggleOther()">
-                <option value="">— Select reason —</option>
-                <option>Price</option>
-                <option>Design</option>
-                <option>Size</option>
-                <option>Colour</option>
-                <option>Visit Later</option>
-                <option>Just Surfing</option>
-                <option>Other (Please Tell Us)</option>
-              </select>
-            </div>
-          </div>
-          <div class="field" id="g_otherWrap" style="display:none"><label>Please tell us the reason</label>
-            <input type="text" id="g_notBuyOther" placeholder="Type the reason" />
-          </div>
-          <div class="err" id="g_err"></div>
-          <button class="btn" id="g_submit" onclick="submitGuard()">Save Visitor</button>
+
+      <div class="card">
+        <div class="cap">New Visitor</div>
+        <div class="stat" id="g_stat">Today — Visitors: … · Ordered: …</div>
+        <div class="grid2">
+          <div class="field"><label>How did you hear about us?</label><select id="g_source"></select></div>
+          <div class="field"><label>Sales Person (converted by)</label><select id="g_staffEmail"></select></div>
         </div>
+        <div class="grid2">
+          <div class="field"><label>Product Purchased / Ordered</label>
+            <select id="g_purchased" onchange="toggleReason('g')"><option value="">— Select —</option><option>Yes</option><option>No</option></select>
+          </div>
+          <div class="field" id="g_reasonWrap" style="display:none"><label>If No — why not?</label>
+            <select id="g_notBuyReason" onchange="toggleOther('g')"></select>
+          </div>
+        </div>
+        <div class="field" id="g_billsWrap" style="display:none"><label>How many bills made? (e.g. 1, 2)</label>
+          <input type="text" id="g_bills" inputmode="numeric" placeholder="1" />
+        </div>
+        <div class="field" id="g_otherWrap" style="display:none"><label>Please tell us the reason</label>
+          <input type="text" id="g_notBuyOther" placeholder="Type the reason" />
+        </div>
+        <div class="err" id="g_err"></div>
+        <button class="btn" id="g_submit" onclick="submitGuard()">Save Visit (counts as 1)</button>
       </div>
 
-      <div class="foot">Built by Somnath Karmakar</div>
+      <div class="card">
+        <div class="cap">Recent Entries — tap Edit</div>
+        <div id="recentList"><div class="empty">Loading…</div></div>
+      </div>
+
+      <div class="foot">Each visit = 1 count (a family of 4 with 1 buyer still counts as 1). Built by Somnath Karmakar</div>
+    </div>
+
+    <!-- edit modal -->
+    <div class="overlay" id="editOverlay">
+      <div class="modal">
+        <div class="cap">Edit Entry <span id="e_id"></span></div>
+        <div class="grid2">
+          <div class="field"><label>Source</label><select id="e_source"></select></div>
+          <div class="field"><label>Sales Person</label><select id="e_staffEmail"></select></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Purchased / Ordered</label>
+            <select id="e_purchased" onchange="toggleReason('e')"><option value="">— Select —</option><option>Yes</option><option>No</option></select>
+          </div>
+          <div class="field" id="e_reasonWrap" style="display:none"><label>Why not?</label>
+            <select id="e_notBuyReason" onchange="toggleOther('e')"></select>
+          </div>
+        </div>
+        <div class="field" id="e_billsWrap" style="display:none"><label>How many bills made?</label><input type="text" id="e_bills" inputmode="numeric" placeholder="1" /></div>
+        <div class="field" id="e_otherWrap" style="display:none"><label>Please tell us</label><input type="text" id="e_notBuyOther" placeholder="Type the reason" /></div>
+        <div class="err" id="e_err"></div>
+        <div class="mrow">
+          <button class="btn ghost sm" onclick="closeEdit()">Cancel</button>
+          <button class="btn sm" id="e_save" onclick="saveEdit()">Save Changes</button>
+        </div>
+      </div>
     </div>
 
     <script>
-      var SECURITY_API = "https://script.google.com/macros/s/AKfycbwjUBxv6WuKaKWdztSao8jfcMYkW2yZAqW5EsdRWWIctflv2EqDokkXp9hfAiv3Lf4zBA/exec";
+      var API_URL = "https://script.google.com/macros/s/AKfycbzs2Qvvl7sKzQd3i68v708j1Red0TSPyo4xdil-G5kzoU77sl3JZP0oiugLfNydXOI3mg/exec";
+      var REASONS = ['Price','Design','Size','Colour','Visit Later','Just Surfing','Other (Please Tell Us)'];
+      var OPTS = { sources: [], staff: [] };
+      var editId = null;
 
       function showLoader(){ document.getElementById('faceLoader').classList.remove('hide'); }
       function hideLoader(){ document.getElementById('faceLoader').classList.add('hide'); }
       function toast(m,t){ var el=document.getElementById('toast'); el.textContent=m; el.className='toast show '+(t||''); setTimeout(function(){ el.className='toast '+(t||''); },3200); }
-      function api(url,p){ return fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p)}).then(function(r){return r.json();}); }
-
+      function api(p){ return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p)}).then(function(r){return r.json();}); }
       function sv(id){ return document.getElementById(id).value.trim(); }
+      function fillSel(id,arr,ph,sel){ var s=document.getElementById(id); s.innerHTML=''; var p=document.createElement('option'); p.value=''; p.textContent=ph||'— Select —'; s.appendChild(p); (arr||[]).forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;if(sel===v)o.selected=true;s.appendChild(o);}); }
+      function fillReason(id,sel){ var s=document.getElementById(id); s.innerHTML=''; var p=document.createElement('option'); p.value=''; p.textContent='— Select reason —'; s.appendChild(p); REASONS.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;if(sel===v)o.selected=true;s.appendChild(o);}); }
+      function toggleReason(pfx){ var v=document.getElementById(pfx+'_purchased').value; document.getElementById(pfx+'_reasonWrap').style.display=(v==='No')?'block':'none'; document.getElementById(pfx+'_billsWrap').style.display=(v==='Yes')?'block':'none'; if(v!=='No')document.getElementById(pfx+'_otherWrap').style.display='none'; }
+      function toggleOther(pfx){ document.getElementById(pfx+'_otherWrap').style.display=(document.getElementById(pfx+'_notBuyReason').value==='Other (Please Tell Us)')?'block':'none'; }
 
-      /* ===== SECURITY ===== */
-      var securityLoaded=false;
-      function fillSel(id,arr,ph){ var sel=document.getElementById(id); sel.innerHTML=''; var p=document.createElement('option'); p.value=''; p.textContent=ph||'— Select —'; sel.appendChild(p); (arr||[]).forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);}); }
-      function fillDatalist(id,arr){ var dl=document.getElementById(id); dl.innerHTML=''; (arr||[]).forEach(function(v){var o=document.createElement('option');o.value=v;dl.appendChild(o);}); }
-      function loadSecurityOptions(){
-        if(SECURITY_API.indexOf('PASTE_')===0){ document.getElementById('g_err').textContent='Set SECURITY_API URL in the file first.'; return; }
-        securityLoaded=true; showLoader();
-        api(SECURITY_API,{action:'formOptions'})
-          .then(function(o){ hideLoader(); fillSel('g_source',o.sources,'Select source'); fillSel('g_staffEmail',o.staff,'Select salesman'); loadFootfall(); })
-          .catch(function(){ hideLoader(); securityLoaded=false; document.getElementById('g_err').textContent='Could not load Office Boy options — check SECURITY_API deployment.'; });
-      }
-      function loadFootfall(){
-        api(SECURITY_API,{action:'footfall'})
-          .then(function(f){ if(f&&f.today) updateStat(f.today.v,f.today.o); })
-          .catch(function(){});
-      }
+      // ---- boot ----
+      fillReason('g_notBuyReason'); fillReason('e_notBuyReason');
+      api({action:'formOptions'})
+        .then(function(o){ hideLoader(); OPTS.sources=o.sources||[]; OPTS.staff=o.staff||[];
+          fillSel('g_source',OPTS.sources,'Select source'); fillSel('g_staffEmail',OPTS.staff,'Select salesman');
+          loadFootfall(); loadRecent(); })
+        .catch(function(){ hideLoader(); document.getElementById('g_err').textContent='Could not load — check backend (Access: Anyone).'; });
+
+      function loadFootfall(){ api({action:'footfall'}).then(function(f){ if(f&&f.today) updateStat(f.today.v,f.today.o); }).catch(function(){}); }
       function updateStat(v,o){ document.getElementById('g_stat').innerHTML='Today &mdash; Visitors: <b>'+(v||0)+'</b> &middot; Ordered: <b>'+(o||0)+'</b>'; }
-      function toggleReason(){ var no=document.getElementById('g_purchased').value==='No'; document.getElementById('g_reasonWrap').style.display=no?'block':'none'; if(!no){ document.getElementById('g_otherWrap').style.display='none'; } }
-      function toggleOther(){ document.getElementById('g_otherWrap').style.display=(document.getElementById('g_notBuyReason').value==='Other (Please Tell Us)')?'block':'none'; }
+
+      // ---- add ----
       function submitGuard(){
         var err=document.getElementById('g_err'); err.textContent='';
-        var name=sv('g_name'), mobile=document.getElementById('g_mobile').value.replace(/\D/g,'');
-        var reason=sv('g_notBuyReason');
-        if(reason==='Other (Please Tell Us)') reason=sv('g_notBuyOther')||'Other';
-        var payload={ name:name, mobile:mobile, source:sv('g_source'), staffEmail:sv('g_staffEmail'), purchased:sv('g_purchased'), notBuyReason:reason };
+        var reason=sv('g_notBuyReason'); if(reason==='Other (Please Tell Us)') reason=sv('g_notBuyOther')||'Other';
+        var payload={ source:sv('g_source'), staffEmail:sv('g_staffEmail'), purchased:sv('g_purchased'), notBuyReason:reason, bills:sv('g_bills') };
         var btn=document.getElementById('g_submit'); btn.disabled=true; btn.innerHTML='<span class="spin"></span>Saving…'; showLoader();
-        api(SECURITY_API,{action:'saveVisitor',payload:payload})
-          .then(function(res){ hideLoader(); btn.disabled=false; btn.textContent='Save Visitor';
+        api({action:'saveVisitor',payload:payload})
+          .then(function(res){ hideLoader(); btn.disabled=false; btn.textContent='Save Visit (counts as 1)';
             if(res.ok===false){ err.textContent=res.error||'Save failed.'; return; }
-            var d=res.res||{}; toast('Saved! Visitor #'+d.id,'ok'); updateStat(d.todayVisitors,d.todayOrdered); resetGuard(); })
-          .catch(function(e){ hideLoader(); btn.disabled=false; btn.textContent='Save Visitor'; err.textContent=(e&&e.message)||'Failed to reach server.'; });
+            var d=res.res||{}; toast('Saved! Visit #'+d.id,'ok'); updateStat(d.todayVisitors,d.todayOrdered); resetGuard(); loadRecent(); })
+          .catch(function(e){ hideLoader(); btn.disabled=false; btn.textContent='Save Visit (counts as 1)'; err.textContent=(e&&e.message)||'Failed to reach server.'; });
       }
-      function resetGuard(){ document.getElementById('g_name').value=''; document.getElementById('g_mobile').value=''; document.getElementById('g_notBuyOther').value=''; ['g_source','g_staffEmail','g_purchased','g_notBuyReason'].forEach(function(id){document.getElementById(id).selectedIndex=0;}); toggleReason(); document.getElementById('g_name').focus(); }
-      document.getElementById('g_mobile').addEventListener('input',function(){ this.value=this.value.replace(/\D/g,'').slice(0,10); });
+      function resetGuard(){ document.getElementById('g_notBuyOther').value=''; document.getElementById('g_bills').value=''; ['g_source','g_staffEmail','g_purchased','g_notBuyReason'].forEach(function(id){document.getElementById(id).selectedIndex=0;}); toggleReason('g'); }
 
-      loadSecurityOptions();
+      // ---- recent list ----
+      function loadRecent(){
+        api({action:'recent',limit:10}).then(function(r){
+          var box=document.getElementById('recentList'); box.innerHTML='';
+          var rows=(r&&r.rows)||[];
+          if(!rows.length){ box.innerHTML='<div class="empty">No entries yet.</div>'; return; }
+          rows.forEach(function(x){
+            var d=document.createElement('div'); d.className='row';
+            var badge = x.purchased==='Yes'?'<span class="badge b-yes">Yes</span>':(x.purchased==='No'?'<span class="badge b-no">No</span>':'<span class="badge b-none">—</span>');
+            var meta = [x.source, x.salesPerson, x.time].filter(Boolean).join(' · ');
+            var extra = (x.purchased==='Yes' && x.bills) ? (' · '+x.bills+' bill') : (x.whyNot?(' · '+x.whyNot):'');
+            d.innerHTML='<div class="info"><span class="id">#'+x.id+'</span> '+badge+'<div class="meta">'+(meta||'—')+extra+'</div></div>';
+            var b=document.createElement('button'); b.className='btn ghost sm'; b.textContent='Edit';
+            b.onclick=function(){ openEdit(x); };
+            d.appendChild(b); box.appendChild(d);
+          });
+        }).catch(function(){});
+      }
+
+      // ---- edit ----
+      function openEdit(x){
+        editId=x.id;
+        document.getElementById('e_id').textContent='#'+x.id;
+        fillSel('e_source',OPTS.sources,'Select source',x.source);
+        fillSel('e_staffEmail',OPTS.staff,'Select salesman',x.salesPerson);
+        document.getElementById('e_purchased').value=x.purchased||'';
+        var known=REASONS.indexOf(x.whyNot)>=0;
+        fillReason('e_notBuyReason', known?x.whyNot:(x.whyNot?'Other (Please Tell Us)':''));
+        document.getElementById('e_notBuyOther').value=known?'':(x.whyNot||'');
+        document.getElementById('e_bills').value=x.bills||'';
+        toggleReason('e'); toggleOther('e');
+        document.getElementById('e_err').textContent='';
+        document.getElementById('editOverlay').classList.add('show');
+      }
+      function closeEdit(){ document.getElementById('editOverlay').classList.remove('show'); editId=null; }
+      function saveEdit(){
+        var err=document.getElementById('e_err'); err.textContent='';
+        var reason=sv('e_notBuyReason'); if(reason==='Other (Please Tell Us)') reason=sv('e_notBuyOther')||'Other';
+        var payload={ id:editId, source:sv('e_source'), salesPerson:sv('e_staffEmail'), purchased:sv('e_purchased'), whyNotBought:(sv('e_purchased')==='No'?reason:''), bills:(sv('e_purchased')==='Yes'?sv('e_bills'):'') };
+        var btn=document.getElementById('e_save'); btn.disabled=true; btn.innerHTML='<span class="spin"></span>Saving…'; showLoader();
+        api({action:'updateVisitor',payload:payload})
+          .then(function(res){ hideLoader(); btn.disabled=false; btn.textContent='Save Changes';
+            if(res.ok===false){ err.textContent=res.error||'Update failed.'; return; }
+            toast('Updated #'+editId,'ok'); closeEdit(); loadRecent(); loadFootfall(); })
+          .catch(function(e){ hideLoader(); btn.disabled=false; btn.textContent='Save Changes'; err.textContent=(e&&e.message)||'Failed to reach server.'; });
+      }
     </script>
   </body>
 </html>
